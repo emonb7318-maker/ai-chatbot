@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Smart AI Chatbot</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #111;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .box {
+      width: 360px;
+      background: #1e1e1e;
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px black;
+    }
+
+    #chat {
+      height: 320px;
+      overflow-y: auto;
+      background: #000;
+      padding: 10px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    input {
+      width: 72%;
+      padding: 8px;
+      border: none;
+      border-radius: 5px;
+    }
+
+    button {
+      width: 25%;
+      padding: 8px;
+      border: none;
+      border-radius: 5px;
+      background: limegreen;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<div class="box">
+  <h3>Smart AI 🤖</h3>
+  <div id="chat"></div>
+
+  <input id="input" placeholder="Ask something..." />
+  <button onclick="send()">Send</button>
+</div>
+
+<script>
+let userName = "";
+
+function send() {
+  let input = document.getElementById("input").value;
+  let chat = document.getElementById("chat");
+
+  if (!input) return;
+
+  chat.innerHTML += "👤 You: " + input + "<br>";
+
+  let msg = input.toLowerCase();
+
+  let reply = getReply(msg);
+
+  chat.innerHTML += "🤖 AI: " + reply + "<br><br>";
+
+  document.getElementById("input").value = "";
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function getReply(msg) {
+
+  // Learn name
+  if (msg.includes("my name is")) {
+    userName = msg.replace("my name is", "").trim();
+    return "Nice to meet you " + userName + " 😊";
+  }
+
+  if (msg.includes("what is my name")) {
+    return userName ? "Your name is " + userName : "I don't know your name yet!";
+  }
+
+  // Greetings
+  if (msg.includes("hello") || msg.includes("hi")) {
+    return userName ? "Hello " + userName + " 👋" : "Hello! 👋";
+  }
+
+  // Basic help
+  if (msg.includes("help")) return "Ask me anything simple 🙂";
+  if (msg.includes("how are you")) return "I'm just code, but I'm running perfectly 🤖";
+
+  // Fun responses
+  if (msg.includes("joke")) return "Why did the computer get cold? Because it left its Windows open 😂";
+  if (msg.includes("time")) return "I don't have real time access yet ⏰";
+
+  if (msg.includes("bye")) return "Goodbye! Come back soon 👋";
+
+  return "Hmm 🤔 I’m still learning that!";
+}
+</script>
+
+</body>
+</html>
